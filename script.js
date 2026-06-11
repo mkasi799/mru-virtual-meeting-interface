@@ -1,5 +1,7 @@
 const screen = document.getElementById("screen");
 
+let userStream = null;
+
 function addLogo() {
     return `<img id="logo" src="mru-logo.png">`;
 }
@@ -33,22 +35,18 @@ function renderDeviceCheck() {
 
             <h1>Device Check</h1>
 
-            <div class="device-preview">
-                Camera Preview Unavailable
-            </div>
+            <video 
+                id="previewVideo"
+                class="device-preview"
+                autoplay
+                muted
+                playsinline>
+            </video>
 
-            <div class="device-options">
+            <div class="device-instructions">
+                <p>Ensure you are centered in the camera view, as your self-view will not be visible during the meeting.</p>
 
-                <div class="device-item">
-                     <img src="mic.svg" class="device-icon">
-                    Microphone: Internal Microphone
-                </div>
-
-                <div class="device-item">
-                    <img src="speaker.svg" class="device-icon">
-                    Speaker: Default Speakers
-                </div>
-
+                 <p>Ensure your device volume is unmuted and set to an audible level before joining.</p>
             </div>
 
             <button id="joinBtn">Join Meeting</button>
@@ -56,7 +54,27 @@ function renderDeviceCheck() {
         </div>
     `;
 
-    document.getElementById("joinBtn").onclick = startStudy;
+    navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: true
+})
+.then(stream => {
+
+    userStream = stream;
+
+    const previewVideo =
+        document.getElementById("previewVideo");
+
+    previewVideo.srcObject = stream;
+
+})
+.catch(err => {
+
+    console.error(err);
+
+});
+
+document.getElementById("joinBtn").onclick = startStudy;
 }
 
 /* =========================
@@ -77,22 +95,22 @@ function startStudy() {
     setTimeout(() => {
         document.getElementById("count").innerText =
             "2 out of 5 participants joined";
-    }, 1500);
+    }, 10000);
 
     setTimeout(() => {
         document.getElementById("count").innerText =
             "3 out of 5 participants joined";
-    }, 3000);
+    }, 23000);
 
     setTimeout(() => {
         document.getElementById("count").innerText =
             "4 out of 5 participants joined";
-    }, 4500);
+    }, 30000);
 
     setTimeout(() => {
         document.getElementById("count").innerText =
             "5 out of 5 participants joined";
-    }, 6000);
+    }, 34000);
 
     // CONNECTING
     setTimeout(() => {
@@ -102,7 +120,7 @@ function startStudy() {
                 <h2>Connecting to meeting...</h2>
             </div>
         `;
-    }, 8000);
+    }, 37000);
 
 /* =========================
    MEETING ROOM
@@ -126,24 +144,40 @@ function startStudy() {
                         <video autoplay loop playsinline>
                             <source src="p1.mp4" type="video/mp4">
                         </video>
+
+                         <div class="mic-overlay">
+                             <img src="mic-muted.svg">
+                        </div>
                     </div>
 
                     <div class="video-box">
                         <video autoplay loop playsinline>
                             <source src="p2.mp4" type="video/mp4">
                         </video>
+
+                         <div class="mic-overlay"  id="speakerMic">
+                             <img src="mic-muted.svg">
+                        </div>
                     </div>
 
                     <div class="video-box">
                         <video autoplay loop playsinline>
                             <source src="p3.mp4" type="video/mp4">
                         </video>
+
+                         <div class="mic-overlay">
+                             <img src="mic-muted.svg">
+                        </div>
                     </div>
 
                     <div class="video-box">
                         <video autoplay loop playsinline>
                             <source src="p4.mp4" type="video/mp4">
                         </video>
+
+                         <div class="mic-overlay">
+                             <img src="mic-muted.svg">
+                        </div>
                     </div>
 
                 </div>
@@ -151,8 +185,8 @@ function startStudy() {
                 <!-- BOTTOM BAR -->
                 <div class="bottom-ui">
 
-                    <div class="control">
-                        <img src="mic.svg" class="icon">
+                    <div class="control" id="muteButton">
+                        <img src="mic.svg" class="icon" id="muteIcon">
                         <span>Mute</span>
                     </div>
 
@@ -161,71 +195,78 @@ function startStudy() {
                         <span>Participants (5)</span>
                     </div>
 
-                    <div class="control" id="chatButton">
-                        <img src="chat.svg" class="icon">
-                        <span>Chat</span>
-                    </div>
-
                     <div class="control leave">
                         Leave
                     </div>
 
                 </div>
-                
-                <!-- CHAT PANEL -->
-                <div id="chatPanel">
-
-                    <div id="chatHeader">
-                        Meeting Chat
-                    </div>
-
-                    <div id="chatMessages"></div>
-
-                    <div id="chatInputArea">
-                        <input type="text" id="chatInput" placeholder="Type a message...">
-                        <button id="sendBtn">Send</button>
-                    </div>
 
             </div>
         `;
+    
+// MIC TOGGLE FUNCTIONALITY
+const muteButton =
+document.getElementById("muteButton");
 
-        // CHAT OPEN/CLOSE
-        const chatButton = document.getElementById("chatButton");
-        const chatPanel = document.getElementById("chatPanel");
+const muteIcon =
+    document.getElementById("muteIcon");
 
-        chatButton.onclick = () => {
+let isMuted = false;
 
-            if (chatPanel.style.display === "flex") {
-                chatPanel.style.display = "none";
-        } else {
-            chatPanel.style.display = "flex";
+muteButton.onclick = () => {
+
+    isMuted = !isMuted;
+
+    if (isMuted) {
+
+        muteIcon.src = "mic-muted.svg";
+
+        if (userStream) {
+            userStream.getAudioTracks().forEach(track => {
+                track.enabled = false;
+            });
         }
 
-};
+    } else {
 
-// SEND MESSAGE
-const sendBtn = document.getElementById("sendBtn");
+        muteIcon.src = "mic.svg";
 
-sendBtn.onclick = () => {
+        if (userStream) {
+            userStream.getAudioTracks().forEach(track => {
+                track.enabled = true;
+            });
+        }
 
-    const input = document.getElementById("chatInput");
-    const messages = document.getElementById("chatMessages");
-
-    if (input.value.trim() !== "") {
-
-        const msg = document.createElement("div");
-        msg.className = "message";
-        msg.innerText = input.value;
-
-        messages.appendChild(msg);
-
-        input.value = "";
-
-        messages.scrollTop = messages.scrollHeight;
     }
 
 };
 
-    }, 9000);
+    // HIDE MIC FOR SPEAKER AT 40 SECONDS
+    setTimeout(() => {
+
+        const speakerMic =
+            document.getElementById("speakerMic");
+
+        if (speakerMic) {
+            speakerMic.style.display = "none";
+        }
+
+    }, 40000);
+
+    // SHOW MIC AGAIN AT 55 SECS
+    setTimeout(() => {
+
+        const speakerMic =
+            document.getElementById("speakerMic");
+
+        if (speakerMic) {
+            speakerMic.style.display = "block";
+        }
+
+    }, 55000);
+
+}, 42000);
+
 }
+
 renderIntro();
