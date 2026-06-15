@@ -141,7 +141,7 @@ function startStudy() {
                 <div class="meeting-room">
 
                     <div class="video-box">
-                        <video autoplay loop playsinline>
+                        <video autoplay loop muted playsinline preload="auto">
                             <source src="p1.mp4" type="video/mp4">
                         </video>
 
@@ -151,7 +151,7 @@ function startStudy() {
                     </div>
 
                     <div class="video-box">
-                        <video autoplay loop playsinline>
+                        <video autoplay loop muted playsinline preload="auto">
                             <source src="p2.mp4" type="video/mp4">
                         </video>
 
@@ -161,7 +161,7 @@ function startStudy() {
                     </div>
 
                     <div class="video-box">
-                        <video autoplay loop playsinline>
+                        <video autoplay loop muted playsinline preload="auto">
                             <source src="p3.mp4" type="video/mp4">
                         </video>
 
@@ -171,7 +171,7 @@ function startStudy() {
                     </div>
 
                     <div class="video-box">
-                        <video autoplay loop playsinline>
+                        <video autoplay loop muted playsinline preload="auto">
                             <source src="p4.mp4" type="video/mp4">
                         </video>
 
