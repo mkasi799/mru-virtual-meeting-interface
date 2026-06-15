@@ -265,6 +265,14 @@ muteButton.onclick = () => {
 
     }, 55000);
 
+    // REDIRECT TO PART 2 SURVEY AFTER 39 SECONDS
+    setTimeout(() => {
+
+    window.location.href =
+        "https://mtroyal.ca1.qualtrics.com/jfe/form/SV_2gALFMRats3XuBw";
+
+}, 39000);    
+
 }, 42000);
 
 }
