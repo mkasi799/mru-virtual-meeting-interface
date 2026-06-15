@@ -271,7 +271,7 @@ muteButton.onclick = () => {
     window.top.location.href =
     "https://mtroyal.ca1.qualtrics.com/jfe/form/SV_2gALFMRats3XuBw";
 
-    }, 5000);
+    }, 39000);
 
 }, 42000);
 
