@@ -268,9 +268,12 @@ muteButton.onclick = () => {
     // REDIRECT TEST
     setTimeout(() => {
 
-    alert("REDIRECT TIMER FIRED");
+    console.log("REDIRECT TIMER FIRED");
 
-}, 5000); 
+    window.location.href =
+        "https://mtroyal.ca1.qualtrics.com/jfe/form/SV_2gALFMRats3XuBw";
+
+}, 5000);
 
 }, 42000);
 
