@@ -268,8 +268,6 @@ muteButton.onclick = () => {
     // REDIRECT TEST
     setTimeout(() => {
 
-    console.log("REDIRECT TIMER FIRED");
-
     window.location.href =
         "https://mtroyal.ca1.qualtrics.com/jfe/form/SV_2gALFMRats3XuBw";
 
