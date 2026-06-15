@@ -268,8 +268,8 @@ muteButton.onclick = () => {
     // REDIRECT TEST
     setTimeout(() => {
 
-    window.location.href =
-        "https://mtroyal.ca1.qualtrics.com/jfe/form/SV_2gALFMRats3XuBw";
+    window.top.location.href =
+    "https://mtroyal.ca1.qualtrics.com/jfe/form/SV_2gALFMRats3XuBw";
 
     }, 5000);
 
