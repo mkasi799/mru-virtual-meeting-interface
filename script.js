@@ -13,7 +13,9 @@ function addLogo() {
 function renderIntro() {
     screen.innerHTML = `
         ${addLogo()}
+
         <div class="center">
+
             <div class="intro-text">
                 <p>
                     You will participate in a brief virtual meeting with other participants. During the meeting, your self-view will be hidden to reduce distractions and standardize the participant experience.
@@ -25,7 +27,8 @@ function renderIntro() {
             </div>
 
             <button id="proceedBtn">Proceed</button>
-       
+
+        </div>
     `;
 
     document.getElementById("proceedBtn").onclick = renderDeviceCheck;
