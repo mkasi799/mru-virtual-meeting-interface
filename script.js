@@ -164,7 +164,7 @@ function startStudy() {
 
                     <div class="video-box">
                         <video autoplay loop muted playsinline preload="auto">
-                            <source src="p2.mp4" type="video/mp4">
+                            <source src="control_clip.mp4" type="video/mp4">
                         </video>
 
                          <div class="mic-overlay"  id="speakerMic">
