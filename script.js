@@ -13,10 +13,18 @@ function addLogo() {
 function renderIntro() {
     screen.innerHTML = `
         ${addLogo()}
-        <div class="center">
-            <h1>You will participate in a brief virtual meeting with other participants. During the meeting, your self-view will be hidden to reduce distractions and standardize the participant experience. Although you will not be able to see your own video feed, your camera will remain on throughout the interaction, and your video will be visible to the other participants. Likewise, you will be able to see other participants. Please remain connected until the meeting concludes.</h1>
-            <button id="proceedBtn">Proceed</button>
+        <div class="intro-text">
+            <p>
+                You will participate in a brief virtual meeting with other participants. During the meeting, your self-view will be hidden to reduce distractions and standardize the participant experience.
+            </p>
+
+            <p>
+                Although you will not be able to see your own video feed, your camera will remain on throughout the interaction, and your video will be visible to the other participants. Likewise, you will be able to see other participants. Please remain connected until the meeting concludes.
+            </p>
         </div>
+
+        <button id="proceedBtn">Proceed</button>
+       
     `;
 
     document.getElementById("proceedBtn").onclick = renderDeviceCheck;
@@ -205,13 +213,21 @@ function startStudy() {
         `;
     
 // MIC TOGGLE FUNCTIONALITY
-const muteButton =
-document.getElementById("muteButton");
+const muteButton = document.getElementById("muteButton");
+const muteIcon = document.getElementById("muteIcon");
 
-const muteIcon =
-    document.getElementById("muteIcon");
+// Start muted
+let isMuted = true;
 
-let isMuted = false;
+// Show the muted icon initially
+muteIcon.src = "mic-muted.svg";
+
+// Disable the microphone initially (after the stream exists)
+if (userStream) {
+    userStream.getAudioTracks().forEach(track => {
+        track.enabled = false;
+    });
+}
 
 muteButton.onclick = () => {
 
