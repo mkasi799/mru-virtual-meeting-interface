@@ -33,12 +33,12 @@ body {
 
 /* INTRO TEXT */
 .intro-text {
-    max-width: 850px;
-    padding: 0 60px;
-    margin-bottom: 30px;
+    width: 850px;
+
+    margin: 0 auto 30px auto;
 
     text-align: center;
-    font-size: 22px;
+    font-size: 30px;
     line-height: 1.6;
     font-weight: 500;
 }
