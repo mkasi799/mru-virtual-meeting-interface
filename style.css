@@ -50,10 +50,10 @@ body {
 /* BUTTON */
 button {
     margin-top: 20px;
-    padding: 14px 28px;
-    font-size: 18px;
+    padding: 16px 34px;
+    font-size: 20px;
     cursor: pointer;
-    background: red;
+    background: black;
     color: white;
     border: none;
     border-radius: 6px;
