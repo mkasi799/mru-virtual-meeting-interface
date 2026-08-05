@@ -216,7 +216,6 @@ function startStudy() {
             </div>
         `;
 
-
 // MIC TOGGLE FUNCTIONALITY
 const muteButton = document.getElementById("muteButton");
 const muteIcon = document.getElementById("muteIcon");
