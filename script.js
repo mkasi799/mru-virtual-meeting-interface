@@ -216,18 +216,6 @@ function startStudy() {
             </div>
         `;
 
-// AUG 5TH LOADING TROUBLESHOOTING
-const videos = document.querySelectorAll(".meeting-room video");
-
-console.log("Found", videos.length, "videos");
-
-videos.forEach((video, i) => {
-    console.log("Video", i, "readyState:", video.readyState);
-
-    video.addEventListener("canplay", () => {
-        console.log("Video", i, "can play");
-    });
-});
 
 // MIC TOGGLE FUNCTIONALITY
 const muteButton = document.getElementById("muteButton");
